@@ -9,8 +9,8 @@ permissions:
   contents: read
 
 jobs:
-  pre-commit:
-    name: Run pre-commit (in ci)
+  lint:
+    name: Run lints
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -28,4 +28,4 @@ jobs:
           cache-workspace-crates: true
           cache-directories: "bin"
 
-      - run: cargo xtask pre-commit
+      - run: cargo xtask lint

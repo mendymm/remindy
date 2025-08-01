@@ -20,7 +20,7 @@ struct CliArgs {
 
 #[derive(Clone, Subcommand)]
 enum Command {
-    PreCommit,
+    Lint,
     FmtCheck,
     Fmt,
     Clippy,
@@ -54,7 +54,7 @@ impl Command {
             Command::Clippy => {
                 cmd!(sh, "cargo clippy --workspace --all-targets -- -D warnings").run()?;
             }
-            Command::PreCommit => {
+            Command::Lint => {
                 Self::EnsureToolsDownloaded.execute(sh)?;
                 Self::DxCheck.execute(sh)?;
                 Self::DenyCheck.execute(sh)?;
