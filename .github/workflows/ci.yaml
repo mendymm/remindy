@@ -23,10 +23,9 @@ jobs:
 
       - uses: Swatinem/rust-cache@a8b36e3f740d2ae4fa6e44a424a7b296af51cbef
         with:
-          prefix-key: "pre-commit"
           cache-on-failure: true
           cache-all-crates: true
           cache-workspace-crates: true
-          cache-directories: "./bin"
+          cache-directories: "bin"
 
       - run: cargo xtask pre-commit
