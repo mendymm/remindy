@@ -1,0 +1,14 @@
+[package]
+name = "remindy-web"
+edition = "2024"
+version = "0.1.0"
+license = "MIT"
+
+[dependencies]
+dioxus = { workspace = true, features = [] }
+remindy-ui = { workspace = true }
+
+[features]
+default = ["web"]
+web = ["dioxus/web"]
+

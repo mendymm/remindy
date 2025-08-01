@@ -1,0 +1,31 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/remindy-server",
+    "crates/remindy-ui",
+    "crates/remindy-web",
+    "crates/xtask",
+]
+
+
+[workspace.dependencies]
+dioxus = "0.6.3"
+xshell = "0.2"
+clap = "4"
+camino = "1"
+tracing = "0.1"
+tracing-subscriber = "0.3"
+# workspace
+remindy-ui = { path = "crates/remindy-ui" }
+
+[profile]
+
+[profile.wasm-dev]
+inherits = "dev"
+opt-level = 1
+
+[profile.server-dev]
+inherits = "dev"
+
+[profile.android-dev]
+inherits = "dev"
