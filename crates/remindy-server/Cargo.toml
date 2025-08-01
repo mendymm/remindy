@@ -5,3 +5,5 @@ edition = "2024"
 license = "MIT"
 
 [dependencies]
+tokio = { workspace = true, features = ["macros","net","rt-multi-thread"]}
+axum.workspace = true
