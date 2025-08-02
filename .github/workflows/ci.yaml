@@ -11,9 +11,9 @@ permissions:
 jobs:
   lint:
     name: Run lints
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24-04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           persist-credentials: false
       - uses: dtolnay/rust-toolchain@b3b07ba8b418998c39fb20f53e8b695cdcc8de1b
@@ -29,3 +29,28 @@ jobs:
           cache-directories: "bin"
 
       - run: cargo xtask lint
+
+  build-server:
+    name: Build and publish server
+    runs-on: ubuntu-24-04
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@b3b07ba8b418998c39fb20f53e8b695cdcc8de1b
+        with:
+          toolchain: 1.88.0
+
+      - uses: Swatinem/rust-cache@a8b36e3f740d2ae4fa6e44a424a7b296af51cbef
+
+      - name: Build server
+        run: cargo build --package remindy-server --release
+
+      - name: Upload server to nightly release
+        run: |
+          mv target/release/remindy-server .
+          zstd remindy-server
+          sha256sum remindy-server.zst > remindy-server.zst.sha256sum
+
+          gh release upload --clobber nightly remindy-server.zst remindy-server.zst.sha256sum
