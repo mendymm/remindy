@@ -79,7 +79,7 @@ jobs:
         run: cargo xtask ensure-tools-downloaded
 
       - name: Build webui
-        run: dx bundle --release --package remindy-web
+        run: ./bin/dx bundle --release --package remindy-web
 
       - name: Upload webui to cloudflare
         env:
