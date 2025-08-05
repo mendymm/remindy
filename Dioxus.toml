@@ -1,0 +1,4 @@
+[application]
+
+[web]
+pre_compress = true
